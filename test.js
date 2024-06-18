@@ -1,13 +1,8 @@
-// 1. великий та маленький регістр літер - як однакова літера
-// 2. не враховувати пробіли
-// 3. не враховувати  розділові знаки
-// 4. перебрати весь текст і порахувати кількість кожної літери, яка зустрічається в тексті
-
-// створити масив, в який будемо записувати підрахунок
-// перебираємо текст, якщо в масиві немає літери, яка дорівнює літері з тексту, додаємо літеру і записуємо у значення 1 (перший раз зустрілася літера)
-// якщо літера вже є в масиві, то додаємо до значення +1
-
 const fs = require("node:fs");
+const sortStatisticsAlphabetically = require("./helpers/sortStatsAlphabetically");
+const sortStatisticsByCountDescending = require("./helpers/sortStatsByCountDescending");
+const getTotalLetterNumber = require("./helpers/getTotalLetterNumber");
+const getPercentageValues = require("./helpers/getPercentageValues");
 
 try {
   const data = fs.readFileSync(
@@ -42,33 +37,7 @@ try {
     countLetter(char);
   }
 
-  const sortStatisticsAlphabetically = (arr) => {
-    return arr.sort((firstItem, secondItem) => {
-      return firstItem.letter.localeCompare(secondItem.letter);
-    });
-  };
-
-  const sortStatisticsByCountDescending = (arr) => {
-    return arr.sort((firstItem, secondItem) => {
-      return secondItem.count - firstItem.count;
-    });
-  };
-
-  const getTotalLetterNumber = (arr) => {
-    return arr.reduce((acc, { count }) => {
-      return acc + count;
-    }, 0);
-  };
-
   const totalLetterNumber = getTotalLetterNumber(letterCounts);
-
-  const getPercentageValues = (arr) => {
-    return arr.map(({ letter, count }) => {
-      const percentageValue = (count * 100) / totalLetterNumber;
-
-      return { letter, count: `${percentageValue.toFixed(2)} %` };
-    });
-  };
 
   const statisticsInDescendingOrder =
     sortStatisticsByCountDescending(letterCounts);
@@ -87,7 +56,7 @@ try {
 
   console.log(
     "In percentage value",
-    getPercentageValues(statisticsInDescendingOrder)
+    getPercentageValues(statisticsInDescendingOrder, totalLetterNumber)
   );
 } catch (err) {
   console.error(err);
