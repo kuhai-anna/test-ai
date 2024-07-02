@@ -1,4 +1,4 @@
-let letterCounts = [];
+let letterCounts = {};
 
 const countLetter = (char) => {
   const isLetter = /[a-zA-Z]/.test(char);
@@ -8,16 +8,12 @@ const countLetter = (char) => {
   }
 
   const lowercaseLetter = char.toLowerCase();
+  const isLetterExist = letterCounts[lowercaseLetter];
 
-  // check the presence of a letter in the array
-  const existingLetter = letterCounts.find(
-    ({ letter }) => letter === lowercaseLetter
-  );
-
-  if (existingLetter) {
-    existingLetter.count += 1;
+  if (isLetterExist) {
+    letterCounts[lowercaseLetter] += 1;
   } else {
-    letterCounts.push({ letter: lowercaseLetter, count: 1 });
+    letterCounts[lowercaseLetter] = 1;
   }
 };
 
