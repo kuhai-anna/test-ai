@@ -1,5 +1,5 @@
-const getTotalLetterNumber = (arr) => {
-  return arr.reduce((acc, { count }) => {
+const getTotalLetterNumber = (letterCounts) => {
+  return Object.values(letterCounts).reduce((acc, count) => {
     return acc + count;
   }, 0);
 };
