@@ -1,59 +1,56 @@
+// ввести літеру
+// знайти першу появу літери в тексті
+// викликати функцію обрахунку літер після цієї літери
+// запитати, чи продовжити введення чи закрити програму
+
 const fs = require("node:fs");
-const sortStatisticsAlphabetically = require("./helpers/sortStatsAlphabetically");
-const sortStatisticsByCountDescending = require("./helpers/sortStatsByCountDescending");
-const getTotalLetterNumber = require("./helpers/getTotalLetterNumber");
-const getPercentageValues = require("./helpers/getPercentageValues");
+const readline = require("node:readline");
+const { countLetter, letterCounts } = require("./helpers/countLetter");
+const findLetterIndex = require("./helpers/findLetterIndex");
+const displayResults = require("./helpers/displayResults");
 
-const letterCounts = [];
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-const countLetter = (char) => {
-  const isLetter = /[a-zA-Z]/.test(char);
+const processText = (letter) => {
+  try {
+    const data = fs.readFileSync("./bigText.txt", "utf8");
+    // const data = fs.readFileSync("./smallText.txt", "utf8");
 
-  if (!isLetter) {
-    return;
-  }
+    const enteredLetterIndex = findLetterIndex(letter, data);
 
-  const lowercaseLetter = char.toLowerCase();
+    if (enteredLetterIndex !== -1) {
+      const nextLetterIndex = enteredLetterIndex + 1;
 
-  // check the presence of a letter in the array
-  const existingLetter = letterCounts.find(
-    ({ letter }) => letter === lowercaseLetter
-  );
+      for (let i = nextLetterIndex; i < data.length; i += 1) {
+        countLetter(data[i]);
+      }
 
-  if (existingLetter) {
-    existingLetter.count += 1;
-  } else {
-    letterCounts.push({ letter: lowercaseLetter, count: 1 });
+      displayResults();
+    } else {
+      console.log(`There is no letter '${enteredLetter}' in the text`);
+    }
+  } catch (err) {
+    console.error(err);
   }
 };
 
-try {
-  const data = fs.readFileSync(
-    "/Users/annakuhai/Documents/test-ai/bigText.txt",
-    "utf8"
-  );
+const askForLetter = () => {
+  letterCounts.length = 0;
 
-  for (let char of data) {
-    countLetter(char);
-  }
-} catch (err) {
-  console.error(err);
-}
+  rl.question(`Enter a letter: `, (letter) => {
+    processText(letter);
 
-const totalLetterNumber = getTotalLetterNumber(letterCounts);
-const statisticsInDescendingOrder =
-  sortStatisticsByCountDescending(letterCounts);
+    rl.question("Would you like to enter another letter? (y/n) ", (answer) => {
+      if (answer === "y") {
+        askForLetter();
+      } else {
+        rl.close();
+      }
+    });
+  });
+};
 
-console.log("Total number of letters", getTotalLetterNumber(letterCounts));
-console.log(
-  "In alphabetical order",
-  sortStatisticsAlphabetically(letterCounts)
-);
-console.log(
-  "In descending order",
-  sortStatisticsByCountDescending(letterCounts)
-);
-console.log(
-  "In percentage value",
-  getPercentageValues(statisticsInDescendingOrder, totalLetterNumber)
-);
+askForLetter();
