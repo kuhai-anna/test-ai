@@ -1,11 +1,6 @@
-// ввести літеру
-// знайти першу появу літери в тексті
-// викликати функцію обрахунку літер після цієї літери
-// запитати, чи продовжити введення чи закрити програму
-
 const fs = require("node:fs");
 const readline = require("node:readline");
-const { countLetter, letterCounts } = require("./helpers/countLetter");
+let { countLetter, letterCounts } = require("./helpers/countLetter");
 const findLetterIndex = require("./helpers/findLetterIndex");
 const displayResults = require("./helpers/displayResults");
 
@@ -38,7 +33,7 @@ const processText = (letter) => {
 };
 
 const askForLetter = () => {
-  letterCounts.length = 0;
+  letterCounts = {};
 
   rl.question(`Enter a letter: `, (letter) => {
     processText(letter);
