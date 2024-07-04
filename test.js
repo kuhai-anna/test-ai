@@ -1,16 +1,13 @@
-// ввести літеру
-// знайти найпопулярнішу літеру, після введененої
-// скласти текст до 200 символів з введеної літери та найбільш популярної
-// якщо є декілька однаково популярних літер, вибрати будь-яку з них
-// якщо після введеної літери немає більше літер - закінчити програму
-// згенерований текст не повинен перевищувати 200 символів
-
 const fs = require("node:fs");
 const readline = require("node:readline");
 let { countLetter, resetLetterCounts } = require("./helpers/countLetter");
 const findLetterIndex = require("./helpers/findLetterIndex");
 const displayResults = require("./helpers/displayResults");
 const createText = require("./helpers/createText");
+
+// const TEXT_FILE_PATH = "./testText.txt";
+// const TEXT_FILE_PATH = "./bigText.txt"
+const TEXT_FILE_PATH = "./smallText.txt";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -21,23 +18,26 @@ const processText = (letter) => {
   resetLetterCounts();
 
   try {
-    const data = fs.readFileSync("./bigText.txt", "utf8");
-    // const data = fs.readFileSync("./smallText.txt", "utf8");
-
+    const data = fs.readFileSync(TEXT_FILE_PATH, "utf8");
     const enteredLetterIndex = findLetterIndex(letter, data);
+    const nextLetterIndex = enteredLetterIndex + 1;
 
-    if (enteredLetterIndex !== -1) {
-      const nextLetterIndex = enteredLetterIndex + 1;
-
-      for (let i = nextLetterIndex; i < data.length; i += 1) {
-        countLetter(data[i]);
-      }
-
-      displayResults();
-      createText(letter);
-    } else {
+    if (enteredLetterIndex === -1) {
       console.log(`There is no letter '${letter}' in the text`);
+      return;
     }
+
+    if (nextLetterIndex === data.length) {
+      console.log(`Entered letter '${letter}' is the last letter in the text`);
+      return;
+    }
+
+    for (let i = nextLetterIndex; i < data.length; i += 1) {
+      countLetter(data[i]);
+    }
+
+    displayResults();
+    createText(letter);
   } catch (err) {
     console.error(err);
   }
