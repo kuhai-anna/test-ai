@@ -1,0 +1,1 @@
+Hi! It's a test text. You should use it to test the work of your program. Please, read this text and count letters. q
