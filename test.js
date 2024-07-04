@@ -25,7 +25,7 @@ const processText = (letter) => {
 
       displayResults();
     } else {
-      console.log(`There is no letter '${enteredLetter}' in the text`);
+      console.log(`There is no letter '${letter}' in the text`);
     }
   } catch (err) {
     console.error(err);
