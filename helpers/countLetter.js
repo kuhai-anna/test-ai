@@ -17,4 +17,12 @@ const countLetter = (char) => {
   }
 };
 
-module.exports = { countLetter, letterCounts };
+const getLetterCounts = () => {
+  return letterCounts;
+};
+
+const resetLetterCounts = () => {
+  letterCounts = {};
+};
+
+module.exports = { countLetter, getLetterCounts, resetLetterCounts };

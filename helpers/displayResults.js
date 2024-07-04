@@ -1,10 +1,11 @@
-const { letterCounts } = require("./countLetter");
 const getTotalLetterNumber = require("./getTotalLetterNumber");
 const sortStatisticsAlphabetically = require("./sortStatsAlphabetically");
 const sortStatisticsByCountDescending = require("./sortStatsByCountDescending");
 const getPercentageValues = require("./getPercentageValues");
+const { getLetterCounts } = require("./countLetter");
 
 const displayResults = () => {
+  const letterCounts = getLetterCounts();
   const totalLetterNumber = getTotalLetterNumber(letterCounts);
   const statisticsInDescendingOrder =
     sortStatisticsByCountDescending(letterCounts);

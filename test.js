@@ -1,8 +1,16 @@
+// ввести літеру
+// знайти найпопулярнішу літеру, після введененої
+// скласти текст до 200 символів з введеної літери та найбільш популярної
+// якщо є декілька однаково популярних літер, вибрати будь-яку з них
+// якщо після введеної літери немає більше літер - закінчити програму
+// згенерований текст не повинен перевищувати 200 символів
+
 const fs = require("node:fs");
 const readline = require("node:readline");
-let { countLetter, letterCounts } = require("./helpers/countLetter");
+let { countLetter, resetLetterCounts } = require("./helpers/countLetter");
 const findLetterIndex = require("./helpers/findLetterIndex");
 const displayResults = require("./helpers/displayResults");
+const createText = require("./helpers/createText");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -10,6 +18,8 @@ const rl = readline.createInterface({
 });
 
 const processText = (letter) => {
+  resetLetterCounts();
+
   try {
     const data = fs.readFileSync("./bigText.txt", "utf8");
     // const data = fs.readFileSync("./smallText.txt", "utf8");
@@ -24,6 +34,7 @@ const processText = (letter) => {
       }
 
       displayResults();
+      createText(letter);
     } else {
       console.log(`There is no letter '${letter}' in the text`);
     }
@@ -33,7 +44,7 @@ const processText = (letter) => {
 };
 
 const askForLetter = () => {
-  letterCounts = {};
+  resetLetterCounts();
 
   rl.question(`Enter a letter: `, (letter) => {
     processText(letter);
