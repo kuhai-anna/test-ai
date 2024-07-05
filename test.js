@@ -3,6 +3,7 @@ const readline = require("node:readline");
 let { countLetter, resetLetterCounts } = require("./helpers/countLetter");
 const findLetterIndex = require("./helpers/findLetterIndex");
 const displayResults = require("./helpers/displayResults");
+const createText = require("./helpers/createText");
 
 // const TEXT_FILE_PATH = "./testText.txt";
 // const TEXT_FILE_PATH = "./bigText.txt";
@@ -36,6 +37,7 @@ const processText = (letter) => {
     }
 
     displayResults();
+    createText(letter);
   } catch (err) {
     console.error(err);
   }
