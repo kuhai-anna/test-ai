@@ -1,7 +1,9 @@
+const isValidLetter = require("../helpers/isValidLetter");
+
 let letterCounts = {};
 
 const countLetter = (char) => {
-  const isLetter = /[a-zA-Z]/.test(char);
+  const isLetter = isValidLetter(char);
 
   if (!isLetter) {
     return;

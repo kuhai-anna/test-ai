@@ -12,8 +12,11 @@
 
 ## The second task
 
-- Refactor the program to allow entering a letter after which letter counting will begin.
+- Write a program that for given text will provide statistics of the letters that goes immediately after entered letter.
 - Provide the ability to enter new letters without closing the program.
+
+E.g. text: 'Hello, people of the world!' and entered letter is 'e'.
+After each 'e' there are: one 'l', two 'o' and one 'w'.
 
 #### Results of the second task
 
