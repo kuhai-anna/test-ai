@@ -1,8 +1,8 @@
 const fs = require("node:fs");
-const { countLetter, resetLetterCounts } = require("./countLetter");
 const findLetterIndex = require("../helpers/findLetterIndex");
+const { countLetter, resetLetterCounts } = require("./countLetter");
 const displayResults = require("./displayResults");
-const createText = require("../helpers/createText");
+const createText = require("./createText");
 
 const TEXT_FILE_PATH = "./testText.txt";
 // const TEXT_FILE_PATH = "./bigText.txt";
