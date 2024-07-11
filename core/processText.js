@@ -13,20 +13,25 @@ const processText = (letter) => {
   try {
     const data = fs.readFileSync(TEXT_FILE_PATH, "utf8");
     const enteredLetterIndex = findLetterIndex(letter, data);
-    const nextLetterIndex = enteredLetterIndex + 1;
 
     if (enteredLetterIndex === -1) {
       console.log(`There is no letter '${letter}' in the text`);
       return;
     }
 
-    if (nextLetterIndex === data.length) {
+    if (enteredLetterIndex === data.length - 1) {
       console.log(`Entered letter '${letter}' is the last letter in the text`);
       return;
     }
 
-    for (let i = nextLetterIndex; i < data.length; i += 1) {
-      countLetter(data[i]);
+    for (let i = enteredLetterIndex; i < data.length; i += 1) {
+      if (data[i].toLowerCase() === letter) {
+        const nextIndex = i + 1;
+        const actualNextIndex =
+          data[nextIndex] === " " ? nextIndex + 1 : nextIndex;
+
+        countLetter(data[actualNextIndex]);
+      }
     }
 
     displayResults();
