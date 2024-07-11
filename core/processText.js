@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const { countLetter, resetLetterCounts } = require("./countLetter");
 const findLetterIndex = require("../helpers/findLetterIndex");
 const displayResults = require("./displayResults");
+const createText = require("../helpers/createText");
 
 const TEXT_FILE_PATH = "./testText.txt";
 // const TEXT_FILE_PATH = "./bigText.txt";
@@ -35,6 +36,7 @@ const processText = (letter) => {
     }
 
     displayResults();
+    createText(letter);
   } catch (err) {
     console.error(err);
   }
