@@ -1,4 +1,4 @@
-const isValidLetter = require("./isValidLetter");
+const isValidLetter = require("../helpers/isValidLetter");
 
 let letterCounts = {};
 
