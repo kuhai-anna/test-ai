@@ -1,17 +1,13 @@
 const fs = require("node:fs");
-const readline = require("node:readline");
 let { countLetter, resetLetterCounts } = require("./helpers/countLetter");
 const findLetterIndex = require("./helpers/findLetterIndex");
 const displayResults = require("./helpers/displayResults");
+const { conditionalPrompt, rl } = require("./helpers/conditionalPrompt");
+const isValidLetter = require("./helpers/isValidLetter");
 
 // const TEXT_FILE_PATH = "./testText.txt";
 // const TEXT_FILE_PATH = "./bigText.txt";
 const TEXT_FILE_PATH = "./smallText.txt";
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 
 const processText = (letter) => {
   resetLetterCounts();
@@ -45,15 +41,22 @@ const askForLetter = () => {
   resetLetterCounts();
 
   rl.question(`Enter a letter: `, (letter) => {
-    processText(letter);
+    const isLetter = isValidLetter(letter);
 
-    rl.question("Would you like to enter another letter? (y/n) ", (answer) => {
-      if (answer === "y") {
-        askForLetter();
-      } else {
-        rl.close();
-      }
-    });
+    if (!isLetter) {
+      conditionalPrompt(
+        `Entered character '${letter}' isn't a letter. Try again? (y/n) `,
+        askForLetter,
+        () => rl.close()
+      );
+    } else {
+      processText(letter);
+      conditionalPrompt(
+        "Would you like to enter another letter? (y/n) ",
+        askForLetter,
+        () => rl.close()
+      );
+    }
   });
 };
 
