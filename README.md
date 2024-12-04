@@ -22,3 +22,11 @@ After each 'e' there are: one 'l', two 'o' and one 'w'.
 
 ![Second results, image 1](./assets/task2.1.png)
 ![Second results, image 2](./assets/task2.2.png)
+
+## The third task
+
+Modify previous program in the way that it will generate a text (up to 200 characters long) in such way that next character will be the character with the most count of the current one, starting with input letter. If there are several letters with same count, it can choose any of them. If there is no such next letter, program finishes.
+
+#### Results of the third task
+
+![Third results, image 1](./assets/task3.png)
